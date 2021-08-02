@@ -5,33 +5,39 @@ import (
 )
 
 type Type bool
+
 type TypeFunction func(Type, Type) Type
+
+type Operator struct {
+	a Type
+	b Type
+}
 
 const True = true
 const False = false
 
-func T(a, b Type) Type {
+func (o Operator) T(a, b Type) Type {
 	return a
 }
 
-func F(a, b Type) Type {
+func (o Operator) F(a, b Type) Type {
 	return b
 }
 
-func Not(p TypeFunction, a, b Type) Type {
-	return p(F(a, b), T(a, b))
+func (o Operator) Not(p TypeFunction) Type {
+	return p(o.F(o.a, o.b), o.T(o.a, o.b))
 }
 
-func And(p TypeFunction, q TypeFunction, a, b Type) Type {
-	return p(q(a, b), p(a, b))
+func (o Operator) And(p TypeFunction, q TypeFunction) Type {
+	return p(q(o.a, o.b), p(o.a, o.b))
 }
 
-func Or(p TypeFunction, q TypeFunction, a, b Type) Type {
-	return p(p(a, b), q(a, b))
+func (o Operator) Or(p TypeFunction, q TypeFunction) Type {
+	return p(p(o.a, o.b), q(o.a, o.b))
 }
 
-func If(p TypeFunction, q TypeFunction, a, b Type) Type {
-	return p(p(a, b), q(a, b))
+func (o Operator) If(p TypeFunction, q TypeFunction) Type {
+	return p(p(o.a, o.b), q(o.a, o.b))
 }
 
 func _0(f func(int) int, x int) int {
@@ -73,15 +79,23 @@ func _9(f func(int) int, x int) int {
 }
 
 func main() {
+
+	o := Operator{True, False}
+
+	// types
+	fmt.Printf("types\n")
+	fmt.Printf("%v\n", o.T(o.a, o.b))
+	fmt.Printf("%v\n", o.F(o.a, o.b))
+
 	//operators
-	fmt.Printf("%v\n", T(True, False))
-	fmt.Printf("%v\n", F(True, False))
-	fmt.Printf("%v\n", Not(T, True, False))
-	fmt.Printf("%v\n", And(T, T, True, False))
-	fmt.Printf("%v\n", Or(T, T, True, False))
-	fmt.Printf("%v\n", If(F, F, True, False))
+	fmt.Printf("\noperators\n")
+	fmt.Printf("Not True = %v\n", o.Not(o.T))
+	fmt.Printf("True and True = %v\n", o.And(o.T, o.T))
+	fmt.Printf("True or False = %v\n", o.Or(o.T, o.F))
+	fmt.Printf("If False Then True = %v\n", o.If(o.F, o.T))
 
 	// numerals
+	fmt.Printf("\nnumerals\n")
 	acc := func(i int) int { return i + 1 }
 	fmt.Printf("%v\n", _0(acc, 0))
 	fmt.Printf("%v\n", _1(acc, 0))
@@ -93,4 +107,6 @@ func main() {
 	fmt.Printf("%v\n", _7(acc, 0))
 	fmt.Printf("%v\n", _8(acc, 0))
 	fmt.Printf("%v\n", _9(acc, 0))
+
+	// todo y-combinators
 }
