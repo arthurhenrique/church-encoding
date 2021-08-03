@@ -28,16 +28,16 @@ func (o Operator) Not(p TypeFunction) Type {
 	return p(o.F(o.a, o.b), o.T(o.a, o.b))
 }
 
-func (o Operator) And(p TypeFunction, q TypeFunction) Type {
+func (o Operator) And(p, q TypeFunction) Type {
 	return p(q(o.a, o.b), p(o.a, o.b))
 }
 
-func (o Operator) Or(p TypeFunction, q TypeFunction) Type {
+func (o Operator) Or(p, q TypeFunction) Type {
 	return p(p(o.a, o.b), q(o.a, o.b))
 }
 
-func (o Operator) If(p TypeFunction, q TypeFunction) Type {
-	return p(p(o.a, o.b), q(o.a, o.b))
+func (o Operator) If(p, a, b TypeFunction) Type {
+	return p(a(o.a, o.b), b(o.a, o.b))
 }
 
 func _0(f func(int) int, x int) int {
@@ -92,7 +92,7 @@ func main() {
 	fmt.Printf("Not True = %v\n", o.Not(o.T))
 	fmt.Printf("True and True = %v\n", o.And(o.T, o.T))
 	fmt.Printf("True or False = %v\n", o.Or(o.T, o.F))
-	fmt.Printf("If False Then True = %v\n", o.If(o.F, o.T))
+	fmt.Printf("If False Then True Else False = %v\n", o.If(o.T, o.T, o.F))
 
 	// numerals
 	fmt.Printf("\nnumerals\n")
