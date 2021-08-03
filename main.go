@@ -89,10 +89,10 @@ func main() {
 
 	//operators
 	fmt.Printf("\noperators\n")
-	fmt.Printf("Not True = %v\n", o.Not(o.T))
-	fmt.Printf("True and True = %v\n", o.And(o.T, o.T))
-	fmt.Printf("True or False = %v\n", o.Or(o.T, o.F))
-	fmt.Printf("If False Then True Else False = %v\n", o.If(o.T, o.T, o.F))
+	fmt.Printf("%v\n", o.Not(o.T))          // !True -> False
+	fmt.Printf("%v\n", o.And(o.T, o.T))     // True && True -> True
+	fmt.Printf("%v\n", o.Or(o.T, o.F))      // True || False -> True
+	fmt.Printf("%v\n", o.If(o.T, o.T, o.F)) // If True { return True } Else { return False } -> True
 
 	// numerals
 	fmt.Printf("\nnumerals\n")

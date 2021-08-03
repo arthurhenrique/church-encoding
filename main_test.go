@@ -88,7 +88,7 @@ func TestLogicalOperator(t *testing.T) {
 			Expected: True,
 		},
 		{
-			Name:     "should Or return false when given True and False",
+			Name:     "should Or return false when given True or False",
 			Function: o.Or,
 			Arg0:     o.T,
 			Arg1:     o.F,
