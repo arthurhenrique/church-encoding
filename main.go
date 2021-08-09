@@ -60,7 +60,7 @@ func _4(f func(int) int, x int) int {
 }
 
 func _5(f func(int) int, x int) int {
-	return f((f(f(f(x)))))
+	return f(f(f(f(f(x)))))
 }
 func _6(f func(int) int, x int) int {
 	return f(f(f(f(f(f(x))))))

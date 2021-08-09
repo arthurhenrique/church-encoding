@@ -142,3 +142,86 @@ func TestConditionalOperator(t *testing.T) {
 		}
 	}
 }
+
+func TestNumerals(t *testing.T) {
+	type TestCase struct {
+		Name     string
+		Function func(f func(i int) int, x int) int
+		Arg0     int
+		Arg1     int
+		Expected int
+	}
+
+	acc := func(i int) int { return i + 1 }
+
+	testCases := []*TestCase{
+		{
+			Name:     "function should return 0",
+			Function: _0,
+			Arg1:     0,
+			Expected: 0,
+		},
+		{
+			Name:     "function should return 1",
+			Function: _1,
+			Arg1:     0,
+			Expected: 1,
+		},
+		{
+			Name:     "function should return 2",
+			Function: _2,
+			Arg1:     0,
+			Expected: 2,
+		},
+		{
+			Name:     "function should return 3",
+			Function: _3,
+			Arg1:     0,
+			Expected: 3,
+		},
+		{
+			Name:     "function should return 4",
+			Function: _4,
+			Arg1:     0,
+			Expected: 4,
+		},
+		{
+			Name:     "function should return 5",
+			Function: _5,
+			Arg1:     0,
+			Expected: 5,
+		},
+		{
+			Name:     "function should return 6",
+			Function: _6,
+			Arg1:     0,
+			Expected: 6,
+		},
+		{
+			Name:     "function should return 7",
+			Function: _7,
+			Arg1:     0,
+			Expected: 7,
+		},
+		{
+			Name:     "function should return 8",
+			Function: _8,
+			Arg1:     0,
+			Expected: 8,
+		},
+		{
+			Name:     "function should return 9",
+			Function: _9,
+			Arg1:     0,
+			Expected: 9,
+		},
+	}
+
+	for _, tc := range testCases {
+		result := tc.Function(acc, tc.Arg1)
+		fmt.Printf("%s\n", tc.Name)
+		if result != tc.Expected {
+			t.Errorf("result %v != expected %v", result, tc.Expected)
+		}
+	}
+}
